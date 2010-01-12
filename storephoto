@@ -5,6 +5,7 @@ from itertools import imap
 
 from photostore.image import Image
 from photostore.storage import Storage
+from photostore.path import iterfiles
 
 
 def importphotos(files, storepath):
@@ -28,19 +29,9 @@ if __name__ == '__main__':
     if not path.isdir(storepath):
         mkdir(storepath)
 
-    # Build file list
-    files = []
-    for arg in argv[1:]:
-        if path.isdir(arg):
-            for root, dirs, dir_files in walk(arg):
-                for file in dir_files:
-                    files.append(path.join(root, file))
-        elif path.isfile(arg):
-            files.append(arg)
-
     # Import files into store
     try:
-        importphotos(files, storepath)
+        importphotos(iterfiles(argv[1:]), storepath)
     except KeyboardInterrupt:
         print "Import aborted by user"
         exit()
