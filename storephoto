@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 #------------------------------------------------------------------------#
 # PhotoStore - Photo Collection Storage
 # Copyright (C) 2010 Adam Wagner <awagner83@gmail.com>
@@ -18,7 +18,6 @@
 #------------------------------------------------------------------------#
 """Add photo to storage."""
 
-from itertools import imap
 
 from photostore.image import Image
 from photostore.storage import Storage
@@ -29,8 +28,8 @@ def importphotos(files, storepath):
     """Process import photo request."""
 
     with Storage(storepath) as store:
-        for img in imap(Image, files):
-            print img.old_path, '...',
+        for img in map(Image, files):
+            print(img.old_path, '...', end=' ')
             store.insert(img)
 
 
@@ -50,6 +49,6 @@ if __name__ == '__main__':
     try:
         importphotos(iterfiles(argv[1:]), storepath)
     except KeyboardInterrupt:
-        print "Import aborted by user"
+        print("Import aborted by user")
         exit()
     

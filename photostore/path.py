@@ -18,7 +18,7 @@
 """Filelist Handling/Building."""
 
 from os import path, walk, mkdir
-from itertools import chain, ifilter
+from itertools import chain
 
 
 IMAGE_EXTENSIONS = ['jpg', 'png', 'gif']
@@ -32,7 +32,7 @@ def iterfiles(image_paths, extensions=IMAGE_EXTENSIONS):
     for image_path in image_paths:
         if path.isdir(image_path):
             for root, dirs, dir_files in walk(image_path):
-                for file in ifilter(is_match, dir_files):
+                for file in filter(is_match, dir_files):
                     yield path.join(root, file)
         elif path.isfile(file_path) and is_match(file_path):
             yield file_path

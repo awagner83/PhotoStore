@@ -60,9 +60,9 @@ class Storage(object):
     def insert(self, image):
         """Insert new image."""
         if image.id in self.db['images']:
-            print "skipped (duplicate)."
+            print("skipped (duplicate).")
             return
-        print "done."
+        print("done.")
         fullpath = path.join(self.basepath, image.new_path)
 
         # Create dest dir
