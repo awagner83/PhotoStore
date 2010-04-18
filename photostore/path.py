@@ -34,6 +34,6 @@ def iterfiles(image_paths, extensions=IMAGE_EXTENSIONS):
             for root, dirs, dir_files in walk(image_path):
                 for file in filter(is_match, dir_files):
                     yield path.join(root, file)
-        elif path.isfile(file_path) and is_match(file_path):
-            yield file_path
+        elif path.isfile(image_path) and is_match(image_path):
+            yield image_path
     

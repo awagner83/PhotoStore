@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 #------------------------------------------------------------------------#
 # PhotoStore - Photo Collection Storage
 # Copyright (C) 2010 Adam Wagner <awagner83@gmail.com>
@@ -18,6 +19,7 @@
 #------------------------------------------------------------------------#
 """Add photo to storage."""
 
+import logging
 
 from photostore.image import Image
 from photostore.storage import Storage
@@ -49,6 +51,6 @@ if __name__ == '__main__':
     try:
         importphotos(iterfiles(argv[1:]), storepath)
     except KeyboardInterrupt:
-        print("Import aborted by user")
+        logging.info("Import aborted by user.")
         exit()
     
