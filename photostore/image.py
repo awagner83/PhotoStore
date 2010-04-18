@@ -50,7 +50,7 @@ def getext(filename):
     ''
     """
     root, ext = path.splitext(filename)
-    return ext
+    return ext.lower()
 
 
 def gethash(filehandle):
