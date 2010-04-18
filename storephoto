@@ -23,6 +23,7 @@ import logging
 from sys import argv
 from os import path, walk, mkdir
 from itertools import chain
+from optparse import OptionParser
 
 from photostore.image import Image
 from photostore.storage import Storage
@@ -39,17 +40,28 @@ def importphotos(files, storepath):
 
 
 if __name__ == '__main__':
+    
+    parser = OptionParser(usage='%prog [options] DIR_OR_FILE [DIR_OR_FILE...]')
+    parser.add_option('-r', '--root', default='$HOME/.photostore', 
+            help='Root to store photos/db.')
 
-    logging.basicConfig(level=logging.INFO)
-    storepath = path.expandvars("$HOME/.photostore")
+    options, args = parser.parse_args()
+
+    # Make sure I have something to import
+    if not args:
+        parser.error("Nothing to import.")
 
     # Make sure store dir exists
-    if not path.isdir(storepath):
-        mkdir(storepath)
+    root = path.expandvars(options.root)
+    if not path.isdir(root):
+        mkdir(root)
+
+    # Setup logging
+    logging.basicConfig(level=logging.INFO)
 
     # Import files into store
     try:
-        importphotos(iterfiles(argv[1:]), storepath)
+        importphotos(iterfiles(args), root)
     except KeyboardInterrupt:
         logging.info("Import aborted by user.")
         exit()
