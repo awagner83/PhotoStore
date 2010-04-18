@@ -20,6 +20,9 @@
 """Add photo to storage."""
 
 import logging
+from sys import argv
+from os import path, walk, mkdir
+from itertools import chain
 
 from photostore.image import Image
 from photostore.storage import Storage
@@ -31,16 +34,13 @@ def importphotos(files, storepath):
 
     with Storage(storepath) as store:
         for img in map(Image, files):
-            print(img.old_path, '...', end=' ')
+            logging.info("Saving %s..." % img.old_path)
             store.insert(img)
 
 
 if __name__ == '__main__':
 
-    from sys import argv
-    from os import path, walk, mkdir
-    from itertools import chain
-
+    logging.basicConfig(level=logging.INFO)
     storepath = path.expandvars("$HOME/.photostore")
 
     # Make sure store dir exists

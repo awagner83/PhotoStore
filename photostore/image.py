@@ -33,7 +33,7 @@ class Image(object):
     def __init__(self, filename):
         """Image constructor."""
         self.old_path = filename
-        self.hash = gethash(open(filename))
+        self.hash = gethash(open(filename, 'rb'))
         self.size = path.getsize(filename)
         self.id = "%s-%d" % (self.hash, self.size)
         self.new_path = "%s/%s%s" % (
